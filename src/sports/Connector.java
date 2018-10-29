@@ -16,8 +16,8 @@ public class Connector{
     System.out.println(dbClassName);
     Class.forName(dbClassName);
 
-    p.put("user", "root");
-    p.put("password", "Omwene11@");
+    p.put("user", "sports");
+    p.put("password", "sports");
 
 //    c = DriverManager.getConnection(CONNECTION, p);
     System.out.println("Connected!");
@@ -27,8 +27,11 @@ public class Connector{
 
   public static void main(String args[]) throws ClassNotFoundException, SQLException{
       Connector conn = new Connector();
-      System.out.println(conn.getMatches());
+//      System.out.println(conn.getMatches());
+//       conn.getMatchInfo(1);
+//        System.out.println(conn.buyTicket(1, 3, 5));
   }
+  
   public boolean createUser(String username, String email, String password){
       try{
           c = DriverManager.getConnection(CONNECTION, p);
@@ -138,7 +141,7 @@ public class Connector{
                     + " ORDER BY matches.id";
             String stadiumQuery = "SELECT stadiums.stadium_name FROM matches INNER JOIN stadiums ON matches.stadium_id=stadiums.id"
                     + " ORDER BY matches.id";
-            String idQuery = "SELECT stadiums.id FROM matches INNER JOIN stadiums ON matches.stadium_id=stadiums.id "
+            String idQuery = "SELECT matches.id FROM matches INNER JOIN stadiums ON matches.stadium_id=stadiums.id "
                     + " ORDER BY matches.id";
 
             List<String> homeList = new ArrayList();
@@ -206,4 +209,72 @@ public class Connector{
             return errorList;
       }
   }
+  
+  public List getMatchInfo(int matchId) throws ClassNotFoundException, SQLException{
+      c = DriverManager.getConnection(CONNECTION, p);
+      String query = "SELECT * FROM matches WHERE id=?";
+      
+      PreparedStatement preparedStmt = c.prepareStatement(query);
+      preparedStmt.setInt(1, matchId);
+      
+      ResultSet rs = preparedStmt.executeQuery();
+      ResultSetMetaData rsmd = rs.getMetaData();
+      
+      List result = new ArrayList();
+
+      int rowCount = 0;
+      
+      if (rs.last()){
+          rowCount = rs.getRow();
+          rs.beforeFirst();
+      }
+      
+      if (rowCount == 0 ){
+          result.add("none");
+          return result;
+      }
+
+      
+      while (rs.next()){
+          result.add(rs.getInt(1)); // id
+          result.add(rs.getInt(2)); // home team id
+          result.add(rs.getInt(3)); // away team id
+          result.add(rs.getInt(4)); // stadium id
+          result.add(rs.getInt(5)); // number of tickets
+          result.add(rs.getInt(6)); // price
+      }
+      
+      return result;
+  }
+  
+  public boolean buyTicket(int userId, int matchId, int numberOfTickets) throws SQLException{
+      
+       c = DriverManager.getConnection(CONNECTION, p);
+       if (numberOfTickets > 1){
+            for (int x=0; x < numberOfTickets; x++){
+                String query = "INSERT INTO tickets (matchId, userId) VALUES (?, ?)";
+                
+                PreparedStatement preparedStmt = c.prepareStatement(query);
+                preparedStmt.setInt(1, matchId);
+                preparedStmt.setInt(2, userId);
+                
+                preparedStmt.execute();
+                
+            }
+       } else if (numberOfTickets == 1){
+           String query = "INSERT INTO tickets (matchId, userId) VALUES (?, ?)";
+           
+           PreparedStatement preparedStmt = c.prepareStatement(query);
+           preparedStmt.setInt(1, matchId);
+           preparedStmt.setInt(2, userId);
+           
+           preparedStmt.execute();
+       }
+       else {
+           return false;
+       }
+       
+       return true;
+  }
+  
 }

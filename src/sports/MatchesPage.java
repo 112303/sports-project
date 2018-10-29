@@ -5,6 +5,7 @@
  */
 package sports;
 
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,11 @@ public class MatchesPage extends javax.swing.JFrame {
     /**
      * Creates new form MatchesPage
      */
-    public MatchesPage() throws ClassNotFoundException, SQLException {
+    List userInfo = new ArrayList();
+    
+    public MatchesPage(List userInfo) throws ClassNotFoundException, SQLException {
         initComponents();
+        this.userInfo = userInfo;
         
         Connector conn = new Connector();
         List<List> matches = conn.getMatches();
@@ -33,6 +37,17 @@ public class MatchesPage extends javax.swing.JFrame {
             matchValue += " vs " + matches.get(match).get(2);
             matchValue += " - " + matches.get(match).get(3) + "\n";
             matchesListView.add(matchValue);
+        }
+        
+        if (userInfo.size() == 3)
+            userInfoLabel.setText((String) userInfo.get(1));
+        else{
+            JOptionPane.showMessageDialog(null, "Not logged in");
+            this.setVisible(false);
+            
+//            LoginForm loginForm = new LoginForm();
+//            loginForm.setVisible(true);
+            
         }
     }
 
@@ -46,6 +61,7 @@ public class MatchesPage extends javax.swing.JFrame {
     private void initComponents() {
 
         matchesListView = new java.awt.List();
+        userInfoLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,6 +71,8 @@ public class MatchesPage extends javax.swing.JFrame {
             }
         });
 
+        userInfoLabel.setText("userinfo");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -62,11 +80,17 @@ public class MatchesPage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(matchesListView, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(150, 150, 150)
+                .addComponent(userInfoLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(matchesListView, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(userInfoLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(matchesListView, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -77,10 +101,20 @@ public class MatchesPage extends javax.swing.JFrame {
 //        JOptionPane.showMessageDialog(null, matchesListView.getSelectedItem());
 //        matchesListView.getSele
         String value = matchesListView.getSelectedItem();
-        int id = Integer.parseInt(value.substring(0, value.indexOf(' ')));
-//        JOptionPane.showMessageDialog(null, id);
         
+        int id = Integer.parseInt(value.substring(0, value.indexOf(' ')));
+//        String matchInfo = value.substring(2, value.indexOf(' '));
+//        System.out.println("****" + matchInfo + "*****");
+//        JOptionPane.showMessageDialog(null, id);
+        TicketForm ticketForm;
+        try {
+            ticketForm = new TicketForm(value, id, userInfo);
+            ticketForm.setVisible(true);
+            JOptionPane.showMessageDialog(null, id);
 
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(MatchesPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_matchesListViewActionPerformed
 
     /**
@@ -112,7 +146,7 @@ public class MatchesPage extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new MatchesPage().setVisible(true);
+                    new MatchesPage(new ArrayList()).setVisible(true);
                 } catch (ClassNotFoundException | SQLException ex) {
                     Logger.getLogger(MatchesPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -122,5 +156,6 @@ public class MatchesPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.List matchesListView;
+    private javax.swing.JLabel userInfoLabel;
     // End of variables declaration//GEN-END:variables
 }

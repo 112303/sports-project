@@ -6,6 +6,8 @@
 package sports;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -19,8 +21,11 @@ public class HomePage extends javax.swing.JFrame {
     /**
      * Creates new form HomePage
      */
-    public HomePage() {
+    
+    List userInfo = new ArrayList();
+    public HomePage(List userInfo) {
         initComponents();
+        this.userInfo = userInfo;
     }
 
     /**
@@ -90,7 +95,7 @@ public class HomePage extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             // JOptionPane.showMessageDialog(null, "Fictures");
-            MatchesPage matchesPage = new MatchesPage();
+            MatchesPage matchesPage = new MatchesPage(userInfo);
             matchesPage.setVisible(true);
             this.setVisible(false);
             
@@ -139,7 +144,7 @@ public class HomePage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HomePage().setVisible(true);
+                new HomePage(new ArrayList()).setVisible(true);
             }
         });
     }

@@ -100,8 +100,10 @@ public class LoginForm extends javax.swing.JFrame {
             
             if (userFound.size() > 1){
                 
-                HomePage homePage = new HomePage();
+                HomePage homePage = new HomePage(userFound);
                 homePage.setVisible(true);
+                
+                JOptionPane.showMessageDialog(null, userFound);
                 
 //                this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
                 this.setVisible(false);
