@@ -27,7 +27,8 @@ public class Connector{
 
   public static void main(String args[]) throws ClassNotFoundException, SQLException{
       Connector conn = new Connector();
-      conn.addStadium("Camp Nou", 90000);
+//      conn.addStadium("Camp Nou", 90000);
+      conn.deleteStadium("Camp Nou");
   }
   
   public boolean createUser(String username, String email, String password){
@@ -418,6 +419,24 @@ public class Connector{
           return true;
           
       } catch(SQLException e){
+          e.printStackTrace();
+          
+          return false;
+      }
+  }
+  
+  public boolean deleteStadium(String stadiumName){
+      try{
+        c = DriverManager.getConnection(CONNECTION, p);
+
+        String query = "DELETE FROM stadiums WHERE stadium_name=?";
+        PreparedStatement preparedStmt = c.prepareStatement(query);
+
+        preparedStmt.setString(1, stadiumName);
+        preparedStmt.executeUpdate();
+        
+        return true;
+      } catch(Exception e){
           e.printStackTrace();
           
           return false;
