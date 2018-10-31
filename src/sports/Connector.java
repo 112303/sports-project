@@ -405,4 +405,22 @@ public class Connector{
       }
   }
   
+  public boolean deleteStadium(int stadiumId){
+      try{
+          
+          c = DriverManager.getConnection(CONNECTION, p);
+          String query = "DELETE FROM stadiums WHERE id=?";
+          
+          PreparedStatement preparedStmt = c.prepareStatement(query);
+          preparedStmt.setInt(1, stadiumId);
+          preparedStmt.executeQuery();
+          
+          return true;
+          
+      } catch(SQLException e){
+          e.printStackTrace();
+          
+          return false;
+      }
+  }
 }
