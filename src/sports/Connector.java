@@ -327,11 +327,21 @@ public class Connector{
       return team_name;
   }
   
-  public void addTeam(String teamName){
+  public boolean addTeam(String teamName){
       try{
+          c = DriverManager.getConnection(CONNECTION, p);
+          String query = "INSERT INTO teams (team_name) VALUES (?)";
           
-      } catch(Exception e){
+          PreparedStatement preparedStmt = c.prepareStatement(query);
+          preparedStmt.setString(1, teamName);
+          
+          preparedStmt.executeUpdate();
+          
+          return true;
+          
+      } catch(SQLException e){
           e.printStackTrace();
+          return false;
       }
   }
   
