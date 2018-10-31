@@ -27,8 +27,10 @@ public class Connector{
 
   public static void main(String args[]) throws ClassNotFoundException, SQLException{
       Connector conn = new Connector();
-//      conn.addStadium("Camp Nou", 90000);
-      conn.deleteStadium("Camp Nou");
+////      conn.addStadium("Camp Nou", 90000);
+//      System.out.println(conn.getMatches());
+//      System.out.println(conn.getMatchInfo(3));
+    conn.addTeam("Gor Mahia");
   }
   
   public boolean createUser(String username, String email, String password){
@@ -61,7 +63,7 @@ public class Connector{
           PreparedStatement preparedStmt = c.prepareStatement(query);
           preparedStmt.setString(1, email);
           preparedStmt.setString(2, password);
-
+          
           ResultSet rs = preparedStmt.executeQuery();
           ResultSetMetaData rsmd = rs.getMetaData();
 
@@ -75,13 +77,19 @@ public class Connector{
               userList.add("none");
               return userList;
           }
-
+          
           while (rs.next()){
               userList.add(rs.getInt(1));       // id 
               userList.add(rs.getString(2));    // username
               userList.add(rs.getString(3));    // email
           }
-
+          
+          
+          /*
+          
+          userList = [4, 'gidi', 'gidi@gidi.com']
+          
+          */
           return userList;
       } catch(Exception e){
           e.printStackTrace();
