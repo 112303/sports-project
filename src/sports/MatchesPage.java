@@ -33,6 +33,7 @@ public class MatchesPage extends javax.swing.JFrame {
         for (int match = 0; match < matches.size(); match ++){
             String matchValue = "";
             matchValue += matches.get(match).get(0);
+            System.out.println(matches.get(match));
             matchValue += " " + matches.get(match).get(1);
             matchValue += " vs " + matches.get(match).get(2);
             matchValue += " - " + matches.get(match).get(3) + "\n";

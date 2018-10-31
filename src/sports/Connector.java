@@ -28,7 +28,7 @@ public class Connector{
   public static void main(String args[]) throws ClassNotFoundException, SQLException{
       Connector conn = new Connector();
 //      conn.getUserTickets(2);
-//      System.out.println(conn.getTeamName(1));
+      System.out.println(conn.getUserTickets(1));
   }
   
   public boolean createUser(String username, String email, String password){
@@ -77,9 +77,9 @@ public class Connector{
           }
 
           while (rs.next()){
-              userList.add(rs.getInt(1));
-              userList.add(rs.getString(2));
-              userList.add(rs.getString(3));
+              userList.add(rs.getInt(1));       // id 
+              userList.add(rs.getString(2));    // username
+              userList.add(rs.getString(3));    // email
           }
 
           return userList;
@@ -277,27 +277,33 @@ public class Connector{
        return true;
   }
   
-  public void getUserTickets(int userId){
+  public List getUserTickets(int userId){
+      List<List> tickets = new ArrayList();
       try{
           c = DriverManager.getConnection(CONNECTION, p);
-          String query = "SELECT tickets.matchId AS 'ticketId' FROM tickets INNER JOIN users ON tickets.userId=users.id WHERE tickets.userId=?";
+          String query = "SELECT tickets.matchId, tickets.id FROM tickets INNER JOIN users ON tickets.userId=users.id WHERE tickets.userId=?";
           
           PreparedStatement preparedStmt = c.prepareStatement(query);
           preparedStmt.setInt(1, userId);
           
           ResultSet rs = preparedStmt.executeQuery();
           Connector conn = new Connector();
+//          List tickets = new ArrayList();
           
           while (rs.next()){
               List matchInfo = conn.getMatchInfo(rs.getInt(1)); // rs.getInt(1) = matchId
-              for (int x = 0; x < matchInfo.size(); x++)
-                  System.out.println(matchInfo.get(x));
-              System.out.println("##################");
+              List match = new ArrayList();
+              match.add(matchInfo.get(0));                          // match id 
+              match.add(rs.getInt(2));                              // ticket id
+              match.add(conn.getTeamName((int) matchInfo.get(1)));  // home team name
+              match.add(conn.getTeamName((int) matchInfo.get(2)));  // away team name 
+              tickets.add(match);
+//              System.out.println("##################");
           }
-          
-      } catch(Exception e){
-          
+      } catch(ClassNotFoundException | SQLException e){
+          e.printStackTrace();
       }
+      return tickets;
   }
   
   public String getTeamName(int teamId){
@@ -319,6 +325,14 @@ public class Connector{
           e.printStackTrace();
       }
       return team_name;
+  }
+  
+  public void addTeam(String teamName){
+      try{
+          
+      } catch(Exception e){
+          e.printStackTrace();
+      }
   }
   
 }

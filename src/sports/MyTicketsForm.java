@@ -5,6 +5,7 @@
  */
 package sports;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -18,10 +19,24 @@ public class MyTicketsForm extends javax.swing.JFrame {
      * @param userInfo
      */
     List userInfo;
-    public MyTicketsForm(List userInfo) {
+    public MyTicketsForm(List userInfo) throws ClassNotFoundException, SQLException {
         initComponents();
         
         this.userInfo = userInfo;
+        Connector conn = new Connector();
+        
+        List<List> userTickets = conn.getUserTickets((int) userInfo.get(0));
+        
+        for (int match = 0; match < userTickets.size(); match++){
+            String matchInfo = "";
+            matchInfo += userTickets.get(match).get(0);
+            matchInfo += ". ";
+            matchInfo += userTickets.get(match).get(2);
+            matchInfo += " vs ";
+            matchInfo += userTickets.get(match).get(3);
+            ticketsList.add(matchInfo);
+        }
+        
     }
     
     public MyTicketsForm(){
@@ -37,13 +52,13 @@ public class MyTicketsForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        list1 = new java.awt.List();
+        ticketsList = new java.awt.List();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        list1.addActionListener(new java.awt.event.ActionListener() {
+        ticketsList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                list1ActionPerformed(evt);
+                ticketsListActionPerformed(evt);
             }
         });
 
@@ -51,23 +66,23 @@ public class MyTicketsForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(list1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(ticketsList, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(28, Short.MAX_VALUE)
-                .addComponent(list1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ticketsList, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void list1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_list1ActionPerformed
+    private void ticketsListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ticketsListActionPerformed
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_list1ActionPerformed
+    }//GEN-LAST:event_ticketsListActionPerformed
 
     /**
      * @param args the command line arguments
@@ -105,6 +120,6 @@ public class MyTicketsForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.List list1;
+    private java.awt.List ticketsList;
     // End of variables declaration//GEN-END:variables
 }

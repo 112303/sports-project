@@ -66,6 +66,11 @@ public class HomePage extends javax.swing.JFrame {
         });
 
         viewTicketsButton.setText("VIEW TICKETS");
+        viewTicketsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewTicketsButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,6 +125,17 @@ public class HomePage extends javax.swing.JFrame {
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "Results");
     }//GEN-LAST:event_viewResultsButtonActionPerformed
+
+    private void viewTicketsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewTicketsButtonActionPerformed
+        try {
+            // TODO add your handling code here:
+            MyTicketsForm myTickets = new MyTicketsForm(userInfo);
+            this.setVisible(false);
+            myTickets.setVisible(true);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(HomePage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_viewTicketsButtonActionPerformed
 
     /**
      * @param args the command line arguments
