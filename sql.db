@@ -45,7 +45,7 @@ CREATE TABLE `matches` (
 
 LOCK TABLES `matches` WRITE;
 /*!40000 ALTER TABLE `matches` DISABLE KEYS */;
-INSERT INTO `matches` VALUES (1,1,2,1,50000,500),(3,2,1,2,50000,500);
+INSERT INTO `matches` VALUES (1,1,2,1,49996,500),(3,2,1,2,50000,500);
 /*!40000 ALTER TABLE `matches` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,7 +61,7 @@ CREATE TABLE `stadiums` (
   `stadium_name` varchar(30) DEFAULT NULL,
   `capacity` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +70,7 @@ CREATE TABLE `stadiums` (
 
 LOCK TABLES `stadiums` WRITE;
 /*!40000 ALTER TABLE `stadiums` DISABLE KEYS */;
-INSERT INTO `stadiums` VALUES (1,'Stamford Bridge',40000),(2,'Old traford',70000);
+INSERT INTO `stadiums` VALUES (1,'Stamford Bridge',40000),(2,'Old traford',70000),(3,'Camp Nou',90000);
 /*!40000 ALTER TABLE `stadiums` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +85,7 @@ CREATE TABLE `teams` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `team_name` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +94,7 @@ CREATE TABLE `teams` (
 
 LOCK TABLES `teams` WRITE;
 /*!40000 ALTER TABLE `teams` DISABLE KEYS */;
-INSERT INTO `teams` VALUES (1,'Chelsea'),(2,'Manchester united');
+INSERT INTO `teams` VALUES (1,'Chelsea'),(2,'Manchester united'),(5,'Real Madrid'),(6,'Barcelona');
 /*!40000 ALTER TABLE `teams` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,7 +114,7 @@ CREATE TABLE `tickets` (
   KEY `userId` (`userId`),
   CONSTRAINT `tickets_ibfk_1` FOREIGN KEY (`matchId`) REFERENCES `matches` (`id`),
   CONSTRAINT `tickets_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +123,7 @@ CREATE TABLE `tickets` (
 
 LOCK TABLES `tickets` WRITE;
 /*!40000 ALTER TABLE `tickets` DISABLE KEYS */;
-INSERT INTO `tickets` VALUES (1,1,1),(3,3,1),(4,3,1),(5,3,1),(6,3,1),(7,3,1),(13,1,1),(14,1,1),(15,1,1),(16,1,1),(17,3,1),(18,3,1),(19,3,1),(20,3,1);
+INSERT INTO `tickets` VALUES (1,1,1),(3,3,1),(4,3,1),(5,3,1),(6,3,1),(7,3,1),(13,1,1),(14,1,1),(15,1,1),(16,1,1),(17,3,1),(18,3,1),(19,3,1),(20,3,1),(21,3,1),(22,3,1),(23,3,1),(24,3,1),(25,3,1),(26,3,1),(27,3,1),(28,3,2),(29,3,2),(30,3,2),(31,3,2),(32,3,2),(33,3,1),(34,3,1),(35,3,1);
 /*!40000 ALTER TABLE `tickets` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,4 +163,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-29  4:54:15
+-- Dump completed on 2018-10-31 12:02:37
