@@ -31,6 +31,7 @@ public class TicketForm extends javax.swing.JFrame {
         this.matchId = matchId;
         this.userInfo = userInfo;
         
+        System.out.println(userInfo);
         matchNameLabel.setText(matchName);
         
         Connector conn = new Connector();
@@ -122,7 +123,7 @@ public class TicketForm extends javax.swing.JFrame {
             Connector conn = new Connector();
             System.out.println(matchId);
             System.out.println(numberOfTickets);
-            boolean isBought = conn.buyTicket(1, matchId, numberOfTickets);
+            boolean isBought = conn.buyTicket((Integer) userInfo.get(0), matchId, numberOfTickets);
             
             if (isBought == true){
                 int totalPrice = numberOfTickets * (Integer) matchInfo.get(5);
@@ -173,6 +174,7 @@ public class TicketForm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new TicketForm().setVisible(true);
             }

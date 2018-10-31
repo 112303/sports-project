@@ -40,6 +40,7 @@ public class HomePage extends javax.swing.JFrame {
         viewFixturesButton = new javax.swing.JButton();
         viewTableButton = new javax.swing.JButton();
         viewResultsButton = new javax.swing.JButton();
+        viewTicketsButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,16 +65,20 @@ public class HomePage extends javax.swing.JFrame {
             }
         });
 
+        viewTicketsButton.setText("VIEW TICKETS");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(159, 159, 159)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(viewResultsButton)
-                    .addComponent(viewFixturesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(viewTableButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(viewResultsButton)
+                        .addComponent(viewFixturesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(viewTableButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(viewTicketsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -85,7 +90,9 @@ public class HomePage extends javax.swing.JFrame {
                 .addComponent(viewTableButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(viewResultsButton)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(viewTicketsButton)
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         pack();
@@ -153,5 +160,6 @@ public class HomePage extends javax.swing.JFrame {
     private javax.swing.JButton viewFixturesButton;
     private javax.swing.JButton viewResultsButton;
     private javax.swing.JButton viewTableButton;
+    private javax.swing.JButton viewTicketsButton;
     // End of variables declaration//GEN-END:variables
 }

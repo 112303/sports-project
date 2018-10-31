@@ -27,9 +27,8 @@ public class Connector{
 
   public static void main(String args[]) throws ClassNotFoundException, SQLException{
       Connector conn = new Connector();
-//      System.out.println(conn.getMatches());
-//       conn.getMatchInfo(1);
-//        System.out.println(conn.buyTicket(1, 3, 5));
+//      conn.getUserTickets(2);
+//      System.out.println(conn.getTeamName(1));
   }
   
   public boolean createUser(String username, String email, String password){
@@ -128,6 +127,7 @@ public class Connector{
   }
 
   public List getMatches(){
+      
       try{
           c = DriverManager.getConnection(CONNECTION, p);
 
@@ -275,6 +275,50 @@ public class Connector{
        }
        
        return true;
+  }
+  
+  public void getUserTickets(int userId){
+      try{
+          c = DriverManager.getConnection(CONNECTION, p);
+          String query = "SELECT tickets.matchId AS 'ticketId' FROM tickets INNER JOIN users ON tickets.userId=users.id WHERE tickets.userId=?";
+          
+          PreparedStatement preparedStmt = c.prepareStatement(query);
+          preparedStmt.setInt(1, userId);
+          
+          ResultSet rs = preparedStmt.executeQuery();
+          Connector conn = new Connector();
+          
+          while (rs.next()){
+              List matchInfo = conn.getMatchInfo(rs.getInt(1)); // rs.getInt(1) = matchId
+              for (int x = 0; x < matchInfo.size(); x++)
+                  System.out.println(matchInfo.get(x));
+              System.out.println("##################");
+          }
+          
+      } catch(Exception e){
+          
+      }
+  }
+  
+  public String getTeamName(int teamId){
+      String team_name = "";
+      try{
+          c = DriverManager.getConnection(CONNECTION, p);
+          String query = "SELECT teams.team_name from teams where id=?";
+          
+          PreparedStatement preparedStmt = c.prepareStatement(query);
+          preparedStmt.setInt(1, teamId);
+          
+          ResultSet rs = preparedStmt.executeQuery();
+          
+          while (rs.next()){
+              team_name = rs.getString(1);
+          }    
+          
+      } catch(Exception e){
+          e.printStackTrace();
+      }
+      return team_name;
   }
   
 }
