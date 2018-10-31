@@ -1,5 +1,3 @@
-
-
 package sports;
 
 import java.sql.*;
@@ -29,8 +27,7 @@ public class Connector{
 
   public static void main(String args[]) throws ClassNotFoundException, SQLException{
       Connector conn = new Connector();
-//      conn.getUserTickets(2);
-      System.out.println(conn.getUserTickets(1));
+      conn.addStadium("Camp Nou", 90000);
   }
   
   public boolean createUser(String username, String email, String password){
@@ -262,6 +259,11 @@ public class Connector{
                 
                 preparedStmt.execute();
                 
+                String query2 = "UPDATE matches SET number_of_tickets=number_of_tickets-1 WHERE id=1";
+                preparedStmt = c.prepareStatement(query2);
+                preparedStmt.executeUpdate();
+                
+                
             }
        } else if (numberOfTickets == 1){
            String query = "INSERT INTO tickets (matchId, userId) VALUES (?, ?)";
@@ -336,6 +338,62 @@ public class Connector{
           
           PreparedStatement preparedStmt = c.prepareStatement(query);
           preparedStmt.setString(1, teamName);
+          
+          preparedStmt.executeUpdate();
+          
+          return true;
+          
+      } catch(SQLException e){
+          e.printStackTrace();
+          return false;
+      }
+  }
+  
+  public boolean deleteTeam(int teamId){
+      try{
+          c = DriverManager.getConnection(CONNECTION, p);
+          
+          
+          String query = "DELETE FROM teams where id=?";
+          PreparedStatement preparedStmt = c.prepareStatement(query);
+          
+          preparedStmt.setInt(1, teamId);
+          preparedStmt.executeUpdate();
+          
+          return true;
+      } catch(SQLException e){
+          e.printStackTrace();
+          return false;
+      }
+  }
+  
+  public boolean addStadium(String stadiumName){
+      try{
+          
+          c = DriverManager.getConnection(CONNECTION, p);
+          String query = "INSERT INTO STADIUMS (stadium_name) VALUES (?)";
+          PreparedStatement preparedStmt = c.prepareStatement(query);
+          
+          preparedStmt.setString(1, stadiumName);
+          preparedStmt.executeUpdate();
+          
+          return true;
+          
+      } catch(Exception e){
+          e.printStackTrace();
+          return false;
+      }
+  }
+  
+  public boolean addStadium(String name, int capacity){
+      try{
+          c = DriverManager.getConnection(CONNECTION, p);
+          
+          String query = "INSERT INTO stadiums (stadium_name, capacity) VALUES (?, ?)";
+          
+          PreparedStatement preparedStmt = c.prepareStatement(query);
+          preparedStmt.setString(1, name);
+          preparedStmt.setInt(2, capacity);
           
           preparedStmt.executeUpdate();
           
