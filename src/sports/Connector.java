@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Connector{
 
@@ -480,5 +482,28 @@ public class Connector{
       }
       
       return matchesHash;
+  }
+  
+  public HashMap getUserTickets(){
+      HashMap<String, Integer> userHash = new HashMap();
+      
+      try {
+          c = DriverManager.getConnection(CONNECTION, p);
+          
+          String query = "SELECT users.id, users.username, COUNT(tickets.userId) FROM users LEFT OUTER JOIN tickets ON users.id = tickets.userId GROUP BY users.id, users.username";
+          PreparedStatement preparedStmt = c.prepareStatement(query);
+          
+          ResultSet rs = preparedStmt.executeQuery();
+          while (rs.next()){
+              String username = rs.getString(2);
+              int numberOfTickets = rs.getInt(3);
+              userHash.put(username, numberOfTickets);
+          }
+          
+      } catch (SQLException ex) {
+          Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      
+      return userHash;
   }
 }

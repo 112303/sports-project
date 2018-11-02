@@ -117,6 +117,10 @@ public class HomePage extends javax.swing.JFrame {
 
     private void viewAnalyticsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAnalyticsButtonActionPerformed
         // TODO add your handling code here:
+        AnalyticsPage ana = new AnalyticsPage();
+        ana.setVisible(true);
+        
+        this.setVisible(false);
         
     }//GEN-LAST:event_viewAnalyticsButtonActionPerformed
 

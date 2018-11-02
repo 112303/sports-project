@@ -87,15 +87,8 @@ public class AnalyticsPage extends javax.swing.JFrame {
     private void viewTeamAnalysisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewTeamAnalysisActionPerformed
         // TODO add your handling code here:
         
-        SwingUtilities.invokeLater(() -> {
-            GraphPanel example = new GraphPanel("XY Chart Example | BORAJI.COM");
-            example.setSize(800, 400);
-            example.setLocationRelativeTo(null);
-            example.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            example.setVisible(true);
-            this.setVisible(true);
-        });
-        
+        GraphPanel graphPanel = new GraphPanel("User statistics", "Who plays most games?");
+        graphPanel.setVisible(true);
     }//GEN-LAST:event_viewTeamAnalysisActionPerformed
 
     /**

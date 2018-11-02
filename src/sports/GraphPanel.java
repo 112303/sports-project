@@ -1,67 +1,87 @@
 package sports;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.WindowConstants;
-
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
+import org.jfree.chart.ChartPanel; 
+import org.jfree.chart.JFreeChart; 
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
-/**
- * @author imssbora
- */
-public class GraphPanel extends JFrame {
-  private static final long serialVersionUID = 6294689542092367723L;
+import org.jfree.data.category.CategoryDataset; 
+import org.jfree.data.category.DefaultCategoryDataset; 
+import org.jfree.ui.ApplicationFrame; 
+import org.jfree.ui.RefineryUtilities; 
 
-  public GraphPanel(String title) {
-    super(title);
-
-    // Create dataset
-    XYDataset dataset = createDataset();
-
-    // Create chart
-    JFreeChart chart = ChartFactory.createXYLineChart(
-        "XY Line Chart Example",
-        "X-Axis",
-        "Y-Axis",
-        dataset,
-        PlotOrientation.VERTICAL,
-        true, true, false);
-
-    // Create Panel
-    ChartPanel panel = new ChartPanel(chart);
-    setContentPane(panel);
-  }
-
-  private XYDataset createDataset() {
-    XYSeriesCollection dataset = new XYSeriesCollection();
-
-    XYSeries series = new XYSeries("Y = X + 2");
-    series.add(2, 4);
-    series.add(8, 10);
-    series.add(10, 12);
-    series.add(13, 15);
-    series.add(17, 19);
-    series.add(18, 20);
-    series.add(21, 23);
-
-    //Add series to dataset
-    dataset.addSeries(series);
-    
-    return dataset;
-  }
-
-  public static void main(String[] args) {
-    SwingUtilities.invokeLater(() -> {
-      GraphPanel example = new GraphPanel("XY Chart Example | BORAJI.COM");
-      example.setSize(800, 400);
-      example.setLocationRelativeTo(null);
-      example.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-      example.setVisible(true);
-    });
-  }
+public class GraphPanel extends ApplicationFrame {
+   
+    static String appTitle="";
+    static String chartTitle="";
+   public GraphPanel( String applicationTitle , String chartTitle ) {
+      super( applicationTitle );        
+      JFreeChart barChart = ChartFactory.createBarChart(
+         chartTitle,           
+         "Category",            
+         "Score",            
+         createDataset(),          
+         PlotOrientation.VERTICAL,           
+         true, true, false);
+         
+      this.appTitle = applicationTitle;
+      this.chartTitle = chartTitle;
+      ChartPanel chartPanel = new ChartPanel( barChart );        
+      chartPanel.setPreferredSize(new java.awt.Dimension( 560 , 367 ) );        
+      setContentPane( chartPanel ); 
+   }
+   
+   private CategoryDataset createDataset( ) {
+//      final String fiat = "FIAT";        
+//      final String audi = "AUDI";        
+//      final String ford = "FORD";        
+//      final String speed = "Speed";        
+//      final String millage = "Millage";        
+//      final String userrating = "User Rating";        
+//      final String safety = "safety";        
+      final DefaultCategoryDataset dataset = new DefaultCategoryDataset( );  
+//
+//      dataset.addValue( 1.0 , fiat , speed );        
+//      dataset.addValue( 3.0 , fiat , userrating );        
+//      dataset.addValue( 5.0 , fiat , millage ); 
+//      dataset.addValue( 5.0 , fiat , safety );           
+//
+//      dataset.addValue( 5.0 , audi , speed );        
+//      dataset.addValue( 6.0 , audi , userrating );       
+//      dataset.addValue( 10.0 , audi , millage );        
+//      dataset.addValue( 4.0 , audi , safety );
+//
+//      dataset.addValue( 4.0 , ford , speed );        
+//      dataset.addValue( 2.0 , ford , userrating );        
+//      dataset.addValue( 3.0 , ford , millage );        
+//      dataset.addValue( 6.0 , ford , safety );               
+       try {
+           Connector conn = new Connector();
+           
+           HashMap<String, Integer> data = new HashMap();
+           data = conn.getUserTickets();
+           for (Map.Entry<String, Integer> entry : data.entrySet()){
+               String key = entry.getKey();
+               int value = entry.getValue();
+//               dataset.addValue(new Double(value), "");
+                dataset.addValue(value, key, "");
+           }
+           
+       } catch (ClassNotFoundException | SQLException ex) {
+           Logger.getLogger(GraphPanel.class.getName()).log(Level.SEVERE, null, ex);
+       }
+      return dataset; 
+   }
+   
+   public static void main( String[ ] args ) {
+      GraphPanel chart;
+        chart = new GraphPanel(appTitle, chartTitle);
+      chart.pack( );        
+      RefineryUtilities.centerFrameOnScreen( chart );        
+      chart.setVisible( true ); 
+   }
 }

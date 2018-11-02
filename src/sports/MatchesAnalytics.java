@@ -27,20 +27,6 @@ public class MatchesAnalytics extends ApplicationFrame {
       super( title );
       
       setContentPane(createDemoPanel());
-           
-//       XYDataset graphDataset = getGraphDataset();
-//       
-//       JFreeChart chart = ChartFactory.createXYLineChart(
-//               "XY Line Chart Example",
-//               "X-Axis",
-//               "Y-Axis",
-//               graphDataset,
-//               PlotOrientation.VERTICAL,
-//               true, true, false);
-//
-//        // Create Panel
-//        ChartPanel panel = new ChartPanel(chart);
-//        setContentPane(panel);
        
    }
    
@@ -56,12 +42,6 @@ public class MatchesAnalytics extends ApplicationFrame {
                int value = entry.getValue();
                dataset.setValue(key, new Double(value));
            }
-//           
-//           dataset.setValue( "Female" , new Double( 50 ) );
-//           dataset.setValue( "Male" , new Double( 47 ) );
-           //      dataset.setValue( "" , new Double( 40 ) );
-           //      dataset.setValue( "" , new Double( 10 ) );
-           
            
        } catch (ClassNotFoundException | SQLException ex) {
            Logger.getLogger(MatchesAnalytics.class.getName()).log(Level.SEVERE, null, ex);
@@ -71,7 +51,7 @@ public class MatchesAnalytics extends ApplicationFrame {
    
    private static JFreeChart createChart( PieDataset dataset ) {
       JFreeChart chart = ChartFactory.createPieChart(      
-         "Gender Distribution",   // chart title 
+         "Tickets bought",   // chart title 
          dataset,          // data    
          true,             // include legend   
          true, 
