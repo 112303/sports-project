@@ -43,6 +43,7 @@ public class SignUpForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        registerUsernameText.setText("Titus");
         registerUsernameText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 registerUsernameTextActionPerformed(evt);

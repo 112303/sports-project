@@ -16,8 +16,8 @@ public class Connector{
     System.out.println(dbClassName);
     Class.forName(dbClassName);
 
-    p.put("user", "sports");
-    p.put("password", "sports");
+    p.put("user", "root");
+    p.put("password", "");
 
 //    c = DriverManager.getConnection(CONNECTION, p);
     System.out.println("Connected!");
@@ -30,7 +30,8 @@ public class Connector{
 ////      conn.addStadium("Camp Nou", 90000);
 //      System.out.println(conn.getMatches());
 //      System.out.println(conn.getMatchInfo(3));
-    conn.addTeam("Gor Mahia");
+//    conn.addTeam("Gor Mahia");
+       System.out.println(conn.getMatchesAnalytics());
   }
   
   public boolean createUser(String username, String email, String password){
@@ -449,5 +450,35 @@ public class Connector{
           
           return false;
       }
+  }
+  
+  public HashMap getMatchesAnalytics(){
+      HashMap<String, Integer> matchesHash= new HashMap();
+      
+      try{
+          c = DriverManager.getConnection(CONNECTION, p);
+          
+          String query = "SELECT tickets.*, count(tickets.matchId) as number_of_tickets from tickets left join matches on (tickets.matchId = matches.id) group by tickets.matchId";
+          PreparedStatement preparedStmt = c.prepareStatement(query);          
+          
+          ResultSet rs = preparedStmt.executeQuery();
+          
+          while (rs.next()){
+//              String matchName = rs.getInt(2);
+               int matchId = rs.getInt(2);
+               int numberOfTickets = rs.getInt(4);
+               
+               String matchName = "";
+               matchName += this.getTeamName((int) this.getMatchInfo(matchId).get(2));
+               matchName += " vs ";
+               matchName += this.getTeamName((int) this.getMatchInfo(matchId).get(3));
+               matchesHash.put(matchName, numberOfTickets);
+          }
+          
+      } catch(Exception e){
+          
+      }
+      
+      return matchesHash;
   }
 }

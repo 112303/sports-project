@@ -46,12 +46,16 @@ public class LoginForm extends javax.swing.JFrame {
 
         jLabel2.setText("password");
 
+        loginEmailText.setText("olivia@olivia.com");
+
         loginSubmitButton.setText("LOGIN");
         loginSubmitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginSubmitButtonActionPerformed(evt);
             }
         });
+
+        loginPasswordText.setText("123");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -65,9 +69,9 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(loginSubmitButton)
-                    .addComponent(loginPasswordText, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(loginPasswordText)
                     .addComponent(loginEmailText))
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -38,9 +38,8 @@ public class HomePage extends javax.swing.JFrame {
     private void initComponents() {
 
         viewFixturesButton = new javax.swing.JButton();
-        viewTableButton = new javax.swing.JButton();
-        viewResultsButton = new javax.swing.JButton();
         viewTicketsButton = new javax.swing.JButton();
+        viewAnalyticsButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,24 +50,17 @@ public class HomePage extends javax.swing.JFrame {
             }
         });
 
-        viewTableButton.setText("VIEW TABLE");
-        viewTableButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewTableButtonActionPerformed(evt);
-            }
-        });
-
-        viewResultsButton.setText("VIEW RESULTS");
-        viewResultsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewResultsButtonActionPerformed(evt);
-            }
-        });
-
         viewTicketsButton.setText("VIEW TICKETS");
         viewTicketsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewTicketsButtonActionPerformed(evt);
+            }
+        });
+
+        viewAnalyticsButton.setText("ANALYTICS");
+        viewAnalyticsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewAnalyticsButtonActionPerformed(evt);
             }
         });
 
@@ -78,12 +70,10 @@ public class HomePage extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(159, 159, 159)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(viewResultsButton)
-                        .addComponent(viewFixturesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(viewTableButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(viewTicketsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(viewFixturesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(viewTicketsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(viewAnalyticsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -91,13 +81,11 @@ public class HomePage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(64, 64, 64)
                 .addComponent(viewFixturesButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(viewTableButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(viewResultsButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(viewTicketsButton)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(viewAnalyticsButton)
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         pack();
@@ -116,16 +104,6 @@ public class HomePage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_viewFixturesButtonActionPerformed
 
-    private void viewTableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewTableButtonActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Tables");
-    }//GEN-LAST:event_viewTableButtonActionPerformed
-
-    private void viewResultsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewResultsButtonActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Results");
-    }//GEN-LAST:event_viewResultsButtonActionPerformed
-
     private void viewTicketsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewTicketsButtonActionPerformed
         try {
             // TODO add your handling code here:
@@ -136,6 +114,11 @@ public class HomePage extends javax.swing.JFrame {
             Logger.getLogger(HomePage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_viewTicketsButtonActionPerformed
+
+    private void viewAnalyticsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAnalyticsButtonActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_viewAnalyticsButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,9 +156,8 @@ public class HomePage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton viewAnalyticsButton;
     private javax.swing.JButton viewFixturesButton;
-    private javax.swing.JButton viewResultsButton;
-    private javax.swing.JButton viewTableButton;
     private javax.swing.JButton viewTicketsButton;
     // End of variables declaration//GEN-END:variables
 }
